@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1743867079 source:c:\users\gabriel\desktop\so\instalador\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
+1743986883 source:c:\users\gabriel\downloads\so-20250407t002319z-001\so\instalador\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1744035310 source:c:\users\be038\downloads\so\instalador\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1744042734 source:c:\users\temp.bibusu52-9833.018\downloads\so\instalador\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
