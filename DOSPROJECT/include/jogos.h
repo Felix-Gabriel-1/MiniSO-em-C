@@ -5,6 +5,7 @@ void som_game_over_8bit();
 void som_menu_fliperama();
 void som_acerto_j();
 void som_menu();
+void beeps_boot();
 //
 void gotoxy(int x, int y);
 void atualiza();

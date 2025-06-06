@@ -1,0 +1,6 @@
+#ifndef VERIFICAINSTALL_H_INCLUDED
+#define VERIFICAINSTALL_H_INCLUDED
+void verificainstall();
+
+
+#endif // VERIFICAINSTALL_H_INCLUDED
