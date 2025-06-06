@@ -5,6 +5,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+///==========================
+///Area de include
+#include "../include/verificainstall.h"
+#include "../include/geren_mem.h"
+#include "../include/funcgraficas.h"
+#include "../include/jogos.h"
+#include "../include/programas.h"
+#include "../include/system.h"
+///==========================
 /* gepeto e stackoverflow salvou */
 #define MAX_PATH 256
 

@@ -1,11 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>  // Inclui o cabe�alho com os prot�tipos
+#include <string.h>  // Inclui o cabeçalho com os protótipos
 #include <windows.h>
 #define MAX_BLOCOS 100
-#define RAM_TOTAL (1024 * 1024) // 1 MB de mem�ria simulada
+#define RAM_TOTAL (1024 * 1024) // 1 MB de memória simulada
 #include <time.h>
 #include <math.h>
+#define HASH_TAMANHO 128
+
+
+///==========================
+///Area de include
+#include "../include/verificainstall.h"
+#include "../include/geren_mem.h"
+#include "../include/funcgraficas.h"
+#include "../include/jogos.h"
+#include "../include/programas.h"
+#include "../include/system.h"
+///==========================
+
 /*Area de memoria do programma
 */
 #define INICIO_CONV   0x00000
@@ -24,7 +37,7 @@ void som_acerto() {
 }
 void som_erro() {
     Beep(600, 200);
-    Beep(400, 200);
+    Beep(400,- 200);
 }
 void som_suspense() {
     for (int i = 800; i <= 1200; i += 100) {
@@ -41,7 +54,7 @@ void jogo_adivinha()
 
     // Fosorio
     srand(time(NULL));
-    numero_secreto = rand() % 100 + 1;  // n�mero entre 1 e 100
+    numero_secreto = rand() % 100 + 1;  // número entre 1 e 100
 
     printf("===========================================================================\n");
     printf("                    Bem-vindo ao jogo da Adivinha!    \n");
@@ -84,7 +97,7 @@ typedef struct
 
 BlocoMemoria memoria[MAX_BLOCOS];
 int total_blocos = 0;
-//Gepteto salvou em comparar blocos realmente n�o sabia
+//Gepteto salvou em comparar blocos realmente não sabia
 int comparar_blocos(const void* a, const void* b)
 {
     BlocoMemoria* blocoA = (BlocoMemoria*)a;
@@ -109,7 +122,7 @@ void* alocar_memoria(unsigned int inicio, unsigned int fim, size_t tamanho)
     {
         unsigned int inicio_bloco = (i < total_blocos) ? memoria[i].endereco_simulado : fim + 1;
 
-        // Espa�o suficiente entre 'pos' e 'inicio_bloco'
+        // Espaço suficiente entre 'pos' e 'inicio_bloco'
         if ((inicio_bloco >= pos) && ((inicio_bloco - pos) >= tamanho))
         {
             void* bloco = malloc(tamanho);
@@ -131,7 +144,7 @@ void* alocar_memoria(unsigned int inicio, unsigned int fim, size_t tamanho)
             }
         }
 
-        // Avan�a para depois do bloco atual
+        // Avança para depois do bloco atual
         if (i < total_blocos)
         {
             pos = memoria[i].endereco_simulado + memoria[i].tamanho;
@@ -266,7 +279,7 @@ void comando_mem()
 
 void salvar_memoria_em_arquivo()
 {
-    FILE* f = fopen("dump.mem", "wb");
+    FILE* f = fopen("dump.txt", "wb");
     if (!f)
     {
         printf("Erro ao salvar memoria em arquivo.\n");
@@ -320,41 +333,178 @@ void bsod(const char* mensagem)
     system("pause > nul");
     exit(1); // encerra o sistema
 }
+//Parte do hash ainda não entendo muito bem o chat tá dando uma mãozinha
 
-/*int login_hash(const *char chave, int primo){
-    int tam = strlen(chave);
-    int resultado = 0;
-    for (int i = 0; i< tam; i++){
-            char c = tolower(chave[i]);
-            int posicaoAlfa = C - 'a';
-            resultado =  resultado + posicaoAlfa * 26* pow(26,i);
+typedef struct EntradaHash {
+    char chave[32];
+    void* valor;
+    struct EntradaHash* proximo;
+} EntradaHash;
 
+EntradaHash* tabela_hash[HASH_TAMANHO] = { NULL };
+//Codigo da aula
+int funcao_hash(const char* chave) {
+    unsigned int hash = 0;
+    for (int i = 0; chave[i] != '\0'; i++) {
+        hash = (hash * 31 + chave[i]) % HASH_TAMANHO;
+    }
+    return hash;
+}
+
+void inserir_hash(const char* chave, void* valor) {
+    int indice = funcao_hash(chave);
+    EntradaHash* nova = malloc(sizeof(EntradaHash));
+    if (!nova) return;
+
+    strcpy(nova->chave, chave);
+    nova->valor = valor;
+    nova->proximo = tabela_hash[indice];
+    tabela_hash[indice] = nova;
+}
+
+void* buscar_hash(const char* chave) {
+    int indice = funcao_hash(chave);
+    EntradaHash* atual = tabela_hash[indice];
+    while (atual) {
+        if (strcmp(atual->chave, chave) == 0) {
+            return atual->valor;
+        }
+        atual = atual->proximo;
+    }
+    return NULL;
+}
+void memoria_cache_hash() {
+    printf("Iniciando cache na ROM usando tabela hash...\n\n");
+    Sleep(1000);
+
+    for (int i = 0; i < 2; i++) {
+        printf("Carregando driver%d na ROM (8 KB):\n", i);
+
+        void* driver = alocar_memoria(INICIO_ROM, FIM_ROM, 8192); // 8 KB
+        if (driver) {
+            char chave[32];
+            sprintf(chave, "driversROM%d", i);
+            inserir_hash(chave, driver);
+
+            // Simula endereço base como sendo o endereço da alocação
+            unsigned int endereco_base = INICIO_ROM + i * 8192;
+
+            for (int kb = 1; kb <= 8; kb++) {
+                printf("  - %2d KB carregados em 0x%05X até 0x%05X\n",
+                    kb,
+                    endereco_base + (kb - 1) * 1024,
+                    endereco_base + kb * 1024 - 1
+                );
+                Sleep(200);
+            }
+
+            printf("Driver '%s' armazenado com sucesso!\n\n", chave);
+        } else {
+            printf("Erro: Falha ao alocar memoria para driver%d\n\n", i);
+            Sleep(1000);
+            bsod("MEMORIA INSUFICIENTE PARA ROM: excedido o limite de 8Kb!");
+        }
+        Sleep(500);
     }
 
-
-}*/
-//S� funciona no MS-DOS
-/*void limpar_buffer() {
-    __asm__ (
-        "limpar:"
-            "mov ah, 01h    ;"
-            "int 21h"
-            "jz done        ;"
-            "mov ah, 08h    ;"
-            "int 21h"
-            "cmp al, 13     ;"
-            "jne limpar     ;"
-        "done:"
-    );
-
+    printf("Cache concluído! Use 'memex' para visualizar a ROM.\n");
 }
+
+
+
+//Para debug hash
+void listar_cache() {
+    printf("Conteudo do cache:\n");
+    for (int i = 0; i < HASH_TAMANHO; i++) {
+        EntradaHash* atual = tabela_hash[i];
+        while (atual) {
+            printf(" - %s => %p\n", atual->chave, atual->valor);
+            atual = atual->proximo;
+        }
+    }
+}
+///Simular a memoria ram como um array de bits
+///Parte que vai ser extremamente complexa
+///Registradores de 16 e 32 bits manuais
+/*typedef struct {
+    unsigned short AX;
+    unsigned short BX;
+    unsigned short CX;
+    unsigned short DX;
+
+    unsigned int PC;  // Program Counter
+    unsigned int SP;  // Stack Pointer
+    unsigned char FLAGS; // Flags (bit a bit)
+
+    unsigned int MAR; // Memory Address Register
+    unsigned char MDR; // Memory Data Register
+} Registradores;
+///Barramentos
+typedef struct {
+    unsigned int endereco;     // Endereço sendo acessado
+    unsigned char dado;        // Dado no barramento
+    int leitura;               // 1 se leitura, 0 se escrita
+    int habilitado;            // Ativo ou não
+} Barramento;
+///Memoria Ram manual
+Registradores reg = {0};
+Barramento bus = {0};
+void ciclo_maquina(Registradores* r, Barramento* b) {
+    if (!b->habilitado) return;
+
+    if (b->leitura) {
+        // Leitura da memória (simulada como um array estático)
+        // Ex: RAM[b->endereco] → b->dado
+        extern unsigned char memoria_simulada[RAM_TOTAL];
+        if (b->endereco < RAM_TOTAL) {
+            b->dado = memoria_simulada[b->endereco];
+            r->MDR = b->dado;
+        }
+    } else {
+        // Escrita na memória
+        extern unsigned char memoria_simulada[RAM_TOTAL];
+        if (b->endereco < RAM_TOTAL) {
+            memoria_simulada[b->endereco] = b->dado;
+        }
+    }
+
+    b->habilitado = 0;  // desativa o barramento após a operação
+}
+
+// Simula escrever 42 na posição 0x1000
+reg.MAR = 0x1000;
+reg.MDR = 42;
+bus.endereco = reg.MAR;
+bus.dado = reg.MDR;
+bus.leitura = 0; // escrita
+bus.habilitado = 1;
+
+void mov_reg_imediato(unsigned short* reg, unsigned short valor) {
+    *reg = valor;
+}
+
+void store(Registradores* r, Barramento* b, unsigned short valor, unsigned int endereco) {
+    r->MDR = valor;
+    r->MAR = endereco;
+    b->dado = valor;
+    b->endereco = endereco;
+    b->leitura = 0; // escrita
+    b->habilitado = 1;
+    ciclo_maquina(r, b);
+}
+
+unsigned char load(Registradores* r, Barramento* b, unsigned int endereco) {
+    r->MAR = endereco;
+    b->endereco = endereco;
+    b->leitura = 1;
+    b->habilitado = 1;
+    ciclo_maquina(r, b);
+    return r->MDR;
+}
+
+
+ciclo_maquina(&reg, &bus);
+
 */
-
-
-
-
-
-
-
-//Parte refrente as op��es ajuda
+//Parte refrente as opções ajuda
 

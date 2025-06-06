@@ -4,6 +4,16 @@
 #include<conio.h> // Para função getch() e kbhit()
 #include<time.h> // Para função rand()
 
+///==========================
+///Area de include
+#include "../include/verificainstall.h"
+#include "../include/geren_mem.h"
+#include "../include/funcgraficas.h"
+#include "../include/jogos.h"
+#include "../include/programas.h"
+#include "../include/system.h"
+///==========================
+
 void som_game_over_8bit() {
     Beep(880, 100);
     Beep(830, 100);
@@ -25,8 +35,12 @@ void som_menu()
 {
     Beep(700, 40);
 }
-
-
+void beeps_boot() {
+    Beep(400, 100);
+    Beep(600, 100);
+    Beep(800, 100);
+    Beep(1000, 100);
+}
 
 // Variáveis Globais
 int c[300][2], pontos=1, cx=2, cy=2;
