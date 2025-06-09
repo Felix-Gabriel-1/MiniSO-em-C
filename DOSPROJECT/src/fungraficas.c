@@ -31,8 +31,7 @@
 
 //Fim da area de mem
 #define HASH_TAMANHO 128
-void resetar_cor()
-{
+void resetar_cor(){
     mudar_cor(7, 0);
 }
 
