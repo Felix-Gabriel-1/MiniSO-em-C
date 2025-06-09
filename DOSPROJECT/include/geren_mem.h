@@ -11,6 +11,8 @@ void jogo_adivinha();
 void memmaker();
 void exibir_mapa_memoria();
 int comparar_blocos(const void* a, const void* b);
+void listar_cache();
+void memoria_cache_hash();
 
 //int login_hash(const *char chave, int primo);
 
