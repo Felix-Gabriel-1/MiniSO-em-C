@@ -40,3 +40,133 @@
 	<conio.h>
 	<time.h>
 
+1749486485 source:c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\main.c
+	<stdio.h>
+	<string.h>
+	<unistd.h>
+	<windows.h>
+	<stdlib.h>
+	<conio.h>
+	"include/verificainstall.h"
+	"include/geren_mem.h"
+	"include/funcgraficas.h"
+	"include/jogos.h"
+	"include/programas.h"
+	"include/system.h"
+	"include/escalonamento.h"
+
+1749483819 c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\include\verificainstall.h
+
+1749483986 c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\include\geren_mem.h
+
+1749483819 c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\include\funcgraficas.h
+
+1749483819 c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\include\jogos.h
+
+1749483819 c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\include\programas.h
+
+1749483819 c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\include\system.h
+
+1749483819 source:c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\src\funcoes_diretorio.c
+	<stdio.h>
+	<string.h>
+	<unistd.h>
+	<windows.h>
+	<stdlib.h>
+	<stdio.h>
+	<time.h>
+	"../include/verificainstall.h"
+	"../include/geren_mem.h"
+	"../include/funcgraficas.h"
+	"../include/jogos.h"
+	"../include/programas.h"
+	"../include/system.h"
+
+1749483819 source:c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\src\geren_mem.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+	<time.h>
+	<math.h>
+	"../include/verificainstall.h"
+	"../include/geren_mem.h"
+	"../include/funcgraficas.h"
+	"../include/jogos.h"
+	"../include/programas.h"
+	"../include/system.h"
+
+1749483819 source:c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\src\jogos.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<conio.h>
+	<time.h>
+	"../include/verificainstall.h"
+	"../include/geren_mem.h"
+	"../include/funcgraficas.h"
+	"../include/jogos.h"
+	"../include/programas.h"
+	"../include/system.h"
+
+1749483819 source:c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\src\programas.c
+	<stdio.h>
+	<string.h>
+	<unistd.h>
+	<windows.h>
+	<stdlib.h>
+	<conio.h>
+	"../include/verificainstall.h"
+	"../include/geren_mem.h"
+	"../include/funcgraficas.h"
+	"../include/jogos.h"
+	"../include/programas.h"
+	"../include/system.h"
+
+1749483819 source:c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\src\system.c
+	<stdio.h>
+	<string.h>
+	<unistd.h>
+	<windows.h>
+	<stdlib.h>
+	<conio.h>
+	"../include/verificainstall.h"
+	"../include/geren_mem.h"
+	"../include/funcgraficas.h"
+	"../include/jogos.h"
+	"../include/programas.h"
+	"../include/system.h"
+
+1749483819 source:c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\src\verificainstall.c
+	<windows.h>
+	<stdio.h>
+	<string.h>
+	"../include/verificainstall.h"
+	"../include/geren_mem.h"
+	"../include/funcgraficas.h"
+	"../include/jogos.h"
+	"../include/programas.h"
+	"../include/system.h"
+
+1749483875 source:c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\src\fungraficas.c
+	<stdio.h>
+	<string.h>
+	<unistd.h>
+	<windows.h>
+	<stdlib.h>
+	<conio.h>
+	"../include/verificainstall.h"
+	"../include/geren_mem.h"
+	"../include/funcgraficas.h"
+	"../include/jogos.h"
+	"../include/programas.h"
+	"../include/system.h"
+
+1749486643 source:c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\src\escalonamento.c
+	"../include/escalonamento.h"
+	<stdio.h>
+	<stdlib.h>
+
+1749486516 c:\users\15583072\downloads\miniso-em-c-main\miniso-em-c-main\dosproject\include\escalonamento.h
+	<stdint.h>
+

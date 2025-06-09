@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <conio.h>  // Para kbhit() e getch()
 
+
+///https://pt.stackoverflow.com/questions/49892/como-executar-assembly-inline-em-um-c%C3%B3digo-com-vari%C3%A1veis-em-c
 ///==========================
 ///Area de include
 #include "include/verificainstall.h"
@@ -13,6 +15,7 @@
 #include "include/jogos.h"
 #include "include/programas.h"
 #include "include/system.h"
+#include "include/escalonamento.h"
 ///==========================
 
 //#include "include/verificainstall.h"
@@ -30,14 +33,38 @@
 
 #define INICIO_ROM    0xC0000 //Desatinada a memoria cache
 #define FIM_ROM       0xFFFFF
-
 //Fim da area de mem
 #define HASH_TAMANHO 128
 //Muda grafico talvez só funcine no MSDOS em modo 16 bits
 
+#define PILHA_TAMANHO 4096  // Ou o tamanho adequado da pilha
+
+void* pilha1;
+void* pilha2;
+
+void tarefa2();  // Prototipar a função tarefa2()
+
+
 //depois remover esse monte de if
 int main()
 {
+    ///Codigo assembly erro
+    /*pilha1 = malloc(PILHA_TAMANHO);
+    pilha2 = malloc(PILHA_TAMANHO);
+    if (!pilha1 || !pilha2) {
+        printf("Falha ao alocar pilhas\n");
+        return 1;
+    }
+    memset(pilha1, 0, PILHA_TAMANHO);
+    memset(pilha2, 0, PILHA_TAMANHO);
+
+    void* topo1 = (void*)(pilha1 + PILHA_TAMANHO - sizeof(void*));
+    void* topo2 = (void*)(pilha2 + PILHA_TAMANHO - sizeof(void*));
+
+    // Iniciar tarefa2 diretamente
+        start_task(tarefa2, topo2);
+        */
+    // Nunca chega aqui, pois start_task faz jmp
     boot_screen();
     char command[30], filename[20];
     char cwd[MAX_PATH];
